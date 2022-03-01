@@ -1,13 +1,14 @@
 package clocky;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-public class ClockHandlerReverse extends ClockHandler {
+public class ClockHandlerReverse implements EventHandler<ActionEvent> {
 
     private ClockGUI clock;
 
     public ClockHandlerReverse(ClockGUI clock) {
-        super(clock);
+        this.clock = clock;
     }
 
     @Override

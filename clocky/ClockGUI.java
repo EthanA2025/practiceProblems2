@@ -46,7 +46,7 @@ public class ClockGUI extends Application {
         Button button = new Button();
         button.setPrefSize(250, 20);
         button.setText("Counter-Clockwise");
-        ClockHandler handler = new ClockHandlerReverse(this);
+        ClockHandlerReverse handler = new ClockHandlerReverse(this);
         button.setOnAction(handler);
         return button;
     }
