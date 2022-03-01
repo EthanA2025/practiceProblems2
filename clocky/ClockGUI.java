@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 
 public class ClockGUI extends Application {
 
+    private Label topLeft = makeLabel("1", Color.GREEN);
+    private Label topRight = makeLabel("2", Color.CYAN);
+    private Label bottomLeft = makeLabel("4", Color.SALMON);
+    private Label bottomRight = makeLabel("3", Color.PINK);
+
     public static Label makeLabel(String text, Color color) {
         Label label = new Label(text);
         label.setFont(new Font("Arial", 48));
@@ -27,19 +32,49 @@ public class ClockGUI extends Application {
         return label;
     }
 
-    public static Button makeButtonClockwise() {
+    public Button makeButtonClockwise() {
         Button button = new Button();
         button.setPrefSize(250, 20);
         button.setText("Clockwise");
+        ClockHandler handler = new ClockHandler(this);
+        button.setOnAction(handler);
         return button;
     }
 
     
-    public static Button makeButtonCounterClockwise() {
+    public Button makeButtonCounterClockwise() {
         Button button = new Button();
         button.setPrefSize(250, 20);
         button.setText("Counter-Clockwise");
+        ClockHandler handler = new ClockHandlerReverse(this);
+        button.setOnAction(handler);
         return button;
+    }
+
+    public void turnClockwise() {
+        String bottomLeftText = bottomLeft.getText();
+        String bottomRightText = bottomRight.getText();
+        String topRightText = topRight.getText();
+        String topLeftText = topLeft.getText();
+
+        topLeft.setText(bottomLeftText);
+        bottomLeft.setText(bottomRightText);
+        bottomRight.setText(topRightText);
+        topRight.setText(topLeftText);
+        // sets the text to the label to the left of it
+    }
+
+    public void turnCounterClockwise() {
+        String bottomLeftText = bottomLeft.getText();
+        String bottomRightText = bottomRight.getText();
+        String topRightText = topRight.getText();
+        String topLeftText = topLeft.getText();
+
+        topLeft.setText(topRightText);
+        bottomLeft.setText(topLeftText);
+        bottomRight.setText(bottomLeftText);
+        topRight.setText(bottomRightText);
+        // sets the text to the label to the left of it
     }
 
     @Override
@@ -47,10 +82,11 @@ public class ClockGUI extends Application {
         // create vbox that contains a border pane and 2 buttons
         VBox vbox = new VBox();
         GridPane pane = new GridPane();
-        pane.add(makeLabel("1", Color.GREEN), 0, 0);
-        pane.add(makeLabel("2", Color.CYAN), 1, 0);
-        pane.add(makeLabel("4", Color.SALMON), 0, 1);
-        pane.add(makeLabel("3", Color.PINK), 1, 1);
+
+        pane.add(topLeft, 0, 0);
+        pane.add(topRight, 1, 0);
+        pane.add(bottomLeft, 0, 1);
+        pane.add(bottomRight, 1, 1);
 
         Button clockwise = makeButtonClockwise();
         Button counterClockwise = makeButtonCounterClockwise();

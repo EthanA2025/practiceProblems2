@@ -5,9 +5,14 @@ import javafx.event.EventHandler;
 
 public class ClockHandler implements EventHandler<ActionEvent>{
 
-    @Override
-    public void handle(ActionEvent arg0) {
-        
+    private ClockGUI clock;
+
+    public ClockHandler(ClockGUI clock) {
+        this.clock = clock;
     }
-    
+
+    @Override
+    public void handle(ActionEvent event) {
+        clock.turnClockwise();
+    }
 }
