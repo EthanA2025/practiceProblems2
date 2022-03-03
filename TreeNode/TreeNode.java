@@ -1,6 +1,7 @@
 package TreeNode;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class TreeNode<E> {
     
@@ -19,10 +20,10 @@ public class TreeNode<E> {
         children.add(child);
     }
 
-    public LinkedList<TreeNode<E>> getChildren() {
+    public List<TreeNode<E>> getChildren() {
         return this.children;
     }
-
+    @Override
     public String toString() {
         if (this.children.size() != 0) {
             return "TreeNode{value=" + this.value 
@@ -34,11 +35,17 @@ public class TreeNode<E> {
     }
 
     public TreeNode<E> findNode(E target) {
-        for (TreeNode<E> child : this.children) {
-            if (child.getValue().equals(target)) {
-                return child;
+        if (this.getValue().equals(target)) {
+            // checks if this nodes value is the target
+            return this;
+        }
+        else{
+            for (TreeNode<E> child : this.children) { // iterate through all the children of each node
+                TreeNode<E> result = child.findNode(target); // get the resulting node from calling find node on the child node
+                if (result != null) { // if the value exists
+                    return result; // return it if its not null
+                } 
             }
-            child.findNode(target);
         }
         return null;
     }
@@ -95,6 +102,7 @@ public class TreeNode<E> {
 
         System.out.println(P.findNode("F"));
         System.out.println(P.findNode("C"));
+
         System.out.println(P.findNode("X"));
         System.out.println(P.findNode("Y"));
 
