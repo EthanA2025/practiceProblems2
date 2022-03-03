@@ -50,6 +50,18 @@ public class TreeNode<E> {
         return null;
     }
 
+    public String prefixTraversal() {
+        String result = "";
+        result += this.getValue() + " "; // add root val first
+        if (this.getChildren() != null) {
+            for (TreeNode<E> child : this.getChildren()) {
+                // System.out.println(child.value);
+                result += child.prefixTraversal(); // get the values from all of the children and add then
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         TreeNode<String> P = new TreeNode<>("P");
 

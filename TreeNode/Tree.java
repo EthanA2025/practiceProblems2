@@ -14,16 +14,21 @@ public class Tree<E> {
     }
 
     public void add(E parent, E child) {
-        root.addChild(new TreeNode<>(child));
-        
+        if (root.findNode(parent) != null) {
+            root.findNode(parent).addChild(new TreeNode<>(child));
+        }
+        // adds the child to the parent node if it exists
     }
 
     public List<E> getChildren(E value) {
         TreeNode<E> node = root.findNode(value);
         List<TreeNode<E>> children = node.getChildren();
-
+        if (children.size() == 0) {
+            return new LinkedList<>(); // return empty list if the parent does not exist
+        }
         // return a list of E values of the childs values
         List<E> valueList = new LinkedList<>();
+        
         for(TreeNode<E> child : children) {
             valueList.add(child.getValue());
         }
@@ -38,13 +43,7 @@ public class Tree<E> {
     }
 
     public String prefixTraversal() {
-        String result = "";
-        result += this.root.getValue() + " ";
-
-        // if (this.root.getChildren() != null) {
-        //     result += this.root.getChildren();
-        // }
-
+        String result = this.root.prefixTraversal(); // add root val first
         return result;
     }
 
@@ -55,12 +54,12 @@ public class Tree<E> {
 
         tree.add("Q", "A");
         tree.add("Q", "B");
+        tree.add("A", "D");
+
 
         tree.add("B", "E");
         tree.add("B", "F");
         tree.add("B", "G");
-
-        tree.add("A", "D");
 
         tree.add("D", "L");
         tree.add("D", "M");
@@ -74,6 +73,8 @@ public class Tree<E> {
         tree.add("C", "J");
         tree.add("C", "K");
 
+        System.out.println(tree.search("Z"));
+        System.out.println(tree.search("C"));
         System.out.println(tree.prefixTraversal());
     }
 }
