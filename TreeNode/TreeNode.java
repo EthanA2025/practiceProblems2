@@ -33,6 +33,16 @@ public class TreeNode<E> {
         }
     }
 
+    public TreeNode<E> findNode(E target) {
+        for (TreeNode<E> child : this.children) {
+            if (child.getValue().equals(target)) {
+                return child;
+            }
+            child.findNode(target);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         TreeNode<String> P = new TreeNode<>("P");
 
@@ -80,7 +90,13 @@ public class TreeNode<E> {
         C.addChild(J);
         C.addChild(K);
 
-        String result = P.toString();
-        System.out.println(result);
+        // String result = P.toString();
+        // System.out.println(result);
+
+        System.out.println(P.findNode("F"));
+        System.out.println(P.findNode("C"));
+        System.out.println(P.findNode("X"));
+        System.out.println(P.findNode("Y"));
+
     }   
 }
